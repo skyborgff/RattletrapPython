@@ -1,6 +1,6 @@
 # https://stackoverflow.com/questions/458550/standard-way-to-embed-version-into-python-package
 
-__version__ = '9.0.6'
+__version__ = '9.0.6.3'
 
 release_notes = {
     '9.0.6': '''

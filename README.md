@@ -1,7 +1,13 @@
 # Rattletrap Python
 
+[![PyPI version](https://badge.fury.io/py/RattletrapPython.svg)](https://badge.fury.io/py/RattletrapPython)
 
-python setup.py install
+`pip install RattletrapPython`
 
 
-import RattletrapPython.rattletrap as rattletrap
+```python
+import RattletrapPython.rattletrap as rat
+
+rat.parse(r'path.replay', r'path.json')
+rat.parse(r'path.json', r'path.replay')
+```

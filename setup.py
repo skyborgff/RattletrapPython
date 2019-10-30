@@ -11,7 +11,7 @@ def load_module(module_name, full_path):
     spec.loader.exec_module(module)
     return module
 version = load_module("RattletrapPython.version", "RattletrapPython/version.py")
-rattletrap = load_module(
+RattletrapPython = load_module(
     "RattletrapPython.rattletrap", "RattletrapPython/rattletrap.py"
 )
 
@@ -26,14 +26,14 @@ class BuildPyCommand(setuptools.command.build_py.build_py):
         rattletrap_version = version.__version__
         rattletrap_link_windows = f"https://github.com/tfausak/rattletrap/releases/download/{rattletrap_version}/rattletrap-{rattletrap_version}-windows.exe"
         rattletrap_response = requests.get(rattletrap_link_windows)
-        rattletrap.rattletrap_path.open("wb").write(rattletrap_response.content)
+        RattletrapPython.rattletrap_path.open("wb").write(rattletrap_response.content)
         setuptools.command.build_py.build_py.run(self)
 
 
 setuptools.setup(
     cmdclass={"build_py": BuildPyCommand},
     name="RattletrapPython",
-    packages=setuptools.find_packages(),
+    packages=[],
     python_requires=">=3.7.0",
     version=version.__version__,
     description="A package to interact with rattletrap from python",
@@ -49,8 +49,8 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: Microsoft :: Windows",
     ],
-    package_data={"rattletrap": [str(rattletrap.rattletrap_path)]},
+    package_data={"RattletrapPython": [str(RattletrapPython.rattletrap_path)]},
     data_files=[r'./RattletrapPython/rattletrap.exe'],
     include_package_data=True,
-    install_requires=['rattletrap'],
+    install_requires=['RattletrapPython'],
 )
