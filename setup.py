@@ -32,7 +32,7 @@ class BuildPyCommand(setuptools.command.build_py.build_py):
 
 setuptools.setup(
     cmdclass={"build_py": BuildPyCommand},
-    name="rattletrap",
+    name="RattletrapPython",
     packages=setuptools.find_packages(),
     python_requires=">=3.7.0",
     version=version.__version__,
