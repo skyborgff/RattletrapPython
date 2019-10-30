@@ -3,6 +3,7 @@ import importlib
 import setuptools.command.build_py
 import requests
 from pathlib import Path
+import time
 
 # Avoid native import statements as we don't want to depend on the package being created yet.
 def load_module(module_name, full_path):
@@ -23,10 +24,11 @@ class BuildPyCommand(setuptools.command.build_py.build_py):
     """Custom build command."""
 
     def run(self):
-        rattletrap_version = version.__version__
+        rattletrap_version = version.file_version
         rattletrap_link_windows = f"https://github.com/tfausak/rattletrap/releases/download/{rattletrap_version}/rattletrap-{rattletrap_version}-windows.exe"
-        rattletrap_response = requests.get(rattletrap_link_windows)
+        rattletrap_response = requests.get(rattletrap_link_windows, allow_redirects=True)
         RattletrapPython.rattletrap_path.open("wb").write(rattletrap_response.content)
+        time.sleep(5)
         setuptools.command.build_py.build_py.run(self)
 
 
